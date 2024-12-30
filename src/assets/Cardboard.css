@@ -1,0 +1,13 @@
+.card__container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  max-width: 30rem;
+}
+
+.memory__image {
+  border-radius: 10%;
+}

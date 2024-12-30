@@ -1,11 +1,11 @@
+import './App.css';
+import Cardboard from './components/Cardboard';
 
 function App() {
 
   return (
-    <>
-    hi there
-    </>
-  )
+   <Cardboard />
+  );
 }
 
-export default App
+export default App;
