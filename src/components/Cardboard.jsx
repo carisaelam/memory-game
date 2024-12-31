@@ -11,6 +11,10 @@ export default function Cardboard() {
   const [highScore, setHighScore] = useState(0);
   const [message, setMessage] = useState('Memory Game');
 
+  useEffect(() => {
+    setIds(shuffle(ids));
+  }, []);
+
   function handleClick(e) {
     setMessage('Memory Game');
     setIds(shuffle(ids));
@@ -43,6 +47,7 @@ export default function Cardboard() {
     setScore(0);
     setHighScore(0);
     setClickedIds([]);
+    setIds(shuffle(ids));
     setMessage('Memory Game');
   }
 
@@ -55,18 +60,28 @@ export default function Cardboard() {
     console.log('high score updated: ', highScore);
   }, [highScore]);
 
+  // eslint-disable-next-line react/prop-types
+  function Card({ id }) {
+    const url = `https://picsum.photos/id/${id}/500`;
+
+    return (
+      <div key={id} className="image__container" onClick={handleClick}>
+        <img id={id} className="memory__image" src={url} />
+      </div>
+    );
+  }
+
+  const containerStyle = {
+    backgroundColor:
+      message === 'GAME OVER'
+        ? 'red'
+        : message === 'YOU WIN!'
+          ? 'dodgerblue'
+          : 'white',
+  };
+
   return (
-    <div
-      className="app__container"
-      style={{
-        backgroundColor:
-          message === 'GAME OVER'
-            ? 'red'
-            : message === 'YOU WIN!'
-              ? 'green'
-              : 'white',
-      }}
-    >
+    <div className="app__container" style={containerStyle}>
       <h1>{message}</h1>
       <h2>
         Score: {score}/{ids.length}
@@ -75,12 +90,7 @@ export default function Cardboard() {
       <button onClick={handleReset}>Reset</button>
       <div className="card__container">
         {ids.map((id) => {
-          const url = `https://picsum.photos/id/${id}/500`;
-          return (
-            <div key={id} className="image__container" onClick={handleClick}>
-              <img id={id} className="memory__image" src={url} />
-            </div>
-          );
+          return <Card key={id} id={id} />;
         })}
       </div>
     </div>
