@@ -39,6 +39,13 @@ export default function Cardboard() {
     });
   }
 
+  function handleReset() {
+    setScore(0);
+    setHighScore(0);
+    setClickedIds([]);
+    setMessage('Memory Game');
+  }
+
   // DEBUGGING
   useEffect(() => {
     console.log('clicked ids changed. updated array: ', clickedIds);
@@ -65,6 +72,7 @@ export default function Cardboard() {
         Score: {score}/{ids.length}
       </h2>
       <h3>High Score: {highScore}</h3>
+      <button onClick={handleReset}>Reset</button>
       <div className="card__container">
         {ids.map((id) => {
           const url = `https://picsum.photos/id/${id}/500`;
