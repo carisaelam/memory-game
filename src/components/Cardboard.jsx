@@ -9,28 +9,34 @@ export default function Cardboard() {
 
   const [score, setScore] = useState(0);
   const [highScore, setHighScore] = useState(0);
+  const [message, setMessage] = useState('Memory Game');
 
   function handleClick(e) {
+    setMessage('Memory Game');
     setIds(shuffle(ids));
-    console.log('e.target.id', Number(e.target.id));
 
     if (clickedIds.includes(Number(e.target.id))) {
-      console.log('GAME OVER');
+      setHighScore((prevHighScore) =>
+        score > prevHighScore ? score : prevHighScore
+      );
       setScore(0);
       setClickedIds([]);
-      if (score > highScore) {
-        setHighScore(score);
-      }
+      setMessage('GAME OVER');
       return;
     }
 
     setClickedIds((prevClickedIds) => [...prevClickedIds, Number(e.target.id)]);
 
-    setScore((prevScore) => prevScore + 1);
-
-    if (score >= ids.length - 1) {
-      console.log('YOU WIN');
-    }
+    setScore((prevScore) => {
+      const newScore = prevScore + 1;
+      if (newScore >= ids.length) {
+        setHighScore((prevHighScore) =>
+          newScore > prevHighScore ? newScore : prevHighScore
+        );
+        setMessage('YOU WIN!');
+      }
+      return newScore;
+    });
   }
 
   // DEBUGGING
@@ -38,9 +44,23 @@ export default function Cardboard() {
     console.log('clicked ids changed. updated array: ', clickedIds);
   }, [clickedIds]);
 
+  useEffect(() => {
+    console.log('high score updated: ', highScore);
+  }, [highScore]);
+
   return (
-    <div className="app__container">
-      <h1>Memory Game</h1>
+    <div
+      className="app__container"
+      style={{
+        backgroundColor:
+          message === 'GAME OVER'
+            ? 'red'
+            : message === 'YOU WIN!'
+              ? 'green'
+              : 'white',
+      }}
+    >
+      <h1>{message}</h1>
       <h2>
         Score: {score}/{ids.length}
       </h2>
