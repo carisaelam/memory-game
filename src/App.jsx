@@ -1,4 +1,3 @@
-import './App.css';
 import Cardboard from './components/Cardboard';
 
 function App() {

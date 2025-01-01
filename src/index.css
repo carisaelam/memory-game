@@ -95,6 +95,7 @@ button {
   border-radius: 0.5rem;
   margin: 0.5rem;
   padding: 0.25rem 0.5rem;
+  max-width: 6rem;
 }
 
 button:hover {
@@ -102,4 +103,16 @@ button:hover {
   background-color: green;
   transform: scale(1.02);
   transition: 0.2s;
+}
+
+.app__container {
+  display: grid;
+  place-content: center;
+  max-width: 100vw;
+}
+
+.header__container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
 }

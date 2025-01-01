@@ -82,12 +82,14 @@ export default function Cardboard() {
 
   return (
     <div className="app__container" style={containerStyle}>
-      <h1>{message}</h1>
-      <h2>
-        Score: {score}/{ids.length}
-      </h2>
-      <h3>High Score: {highScore}</h3>
-      <button onClick={handleReset}>Reset</button>
+      <div className="header__container">
+        <h1>{message}</h1>
+        <h2>
+          Score: {score}/{ids.length}
+        </h2>
+        <h3>High Score: {highScore}</h3>
+        <button onClick={handleReset}>Reset</button>
+      </div>
       <div className="card__container">
         {ids.map((id) => {
           return <Card key={id} id={id} />;
